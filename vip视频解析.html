@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>VIP视频解析</title>
+  <style>
+    body {
+      background-color: #505050;
+      font-size: 15px;
+    }
+    .search {
+      margin-top: 50px;
+      text-align: center;
+    }
+    .search input {
+      width: 500px;
+      height: 24px;
+      outline: none;
+    }
+    .search button {
+      vertical-align: center;
+    }
+    iframe {
+      display: block;
+      width: 1000px;
+      height: 500px;
+      margin: 30px auto;
+      background-color: #dddddd;
+    }
+    p {
+      color: #000;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="search">
+  <input type="text" id="text">
+  <button onclick="input_parse1()">线路一</button>
+  <button onclick="input_parse2()">线路二</button>
+  <button onclick="input_parse3()">线路三</button>
+  <button onclick="reset()">清空</button>
+</div>
+
+<iframe src="" frameborder="0" id="player" scrolling="no" allowfullscreen></iframe>
+<p>在搜索栏输入地址后，按回车键即可解析，按Esc可以清空地址栏</p>
+
+<script>
+// ====================== 你原版里真正的3个接口（解密后）======================
+const parse_url  = atob("aHR0cHM6Ly9zdmlwLmJsamlleC5jYy8/dj0=");
+const parse_url2 = atob("aHR0cHM6Ly93d3cucGxheW0zdTguY24vamlleGkucGhwP3VybD0=");
+const parse_url3 = atob("aHR0cHM6Ly9pbTE5MDcudG9wLz9qeD0=");
+
+const input  = document.getElementById('text');
+const player = document.getElementById('player');
+
+function play(url) {
+  player.src = url;
+}
+
+function input_parse1() {
+  play(parse_url + input.value);
+}
+function input_parse2() {
+  play(parse_url2 + input.value);
+}
+function input_parse3() {
+  play(parse_url3 + input.value);
+}
+
+function reset() {
+  input.value = '';
+  player.src = '';
+}
+
+// 键盘支持
+input.addEventListener('keyup', function(e) {
+  if (e.keyCode === 13) input_parse1();
+  if (e.keyCode === 27) reset();
+});
+</script>
+
+</body>
+</html>
